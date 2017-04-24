@@ -1,0 +1,39 @@
+﻿@model WebApplication1.Models.Blogs
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<head>
+    <style type="text/css">
+        p {
+            white-space: pre-line;
+        }
+
+        div.d2 {
+            background-color: white;
+            padding: 20px;
+        }
+
+        div.d1 {
+            background-color: white;
+            padding: 100px;
+        }
+    </style>
+
+</head>
+<div class="d2">
+        <p>
+            @Html.DisplayFor(model => model.created_at)
+        </p>
+
+        <h1>
+            @Html.DisplayFor(model => model.name)
+        </h1>
+        <p>
+            @Html.DisplayFor(model => model.content)
+        </p>
+</div>
+<p>
+    @Html.ActionLink("返回首页", "Index")
+</p>

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<WebApplication1.Models.Blogs>
+
+@{
+    ViewBag.Title = "Index";
+}
+<head>
+    <style type="text/css">
+        
+        p{
+            white-space:pre-line;
+            }
+        div.d2
+        {
+            background-color: white;padding: 20px;
+        }
+        div.d1{
+            background-color: white;padding: 100px;
+        }
+    </style>
+   
+</head>
+
+<div class="d1">
+    
+    @foreach (var item in Model)
+    {
+        
+        <div class="d2">
+            
+                @Html.DisplayFor(modelItem => item.created_at)
+            
+            <h3>
+                @Html.DisplayFor(modelItem => item.name)
+            </h3>
+            
+            <p>
+                @Html.DisplayFor(modelItem => item.summary)
+            </p>
+            
+            
+            <a href="~/Home/Details/@item.id">继续阅读</a>
+            
+            </div>
+        
+    }
+<div class="d1"></div>
+</div>
