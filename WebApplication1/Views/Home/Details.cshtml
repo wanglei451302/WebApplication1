@@ -19,17 +19,24 @@
             background-color: white;
             padding: 100px;
         }
+        p.p1{
+            TEXT-ALIGN: center;
+        }
+        h1{
+            TEXT-ALIGN: center;
+        }
     </style>
 
 </head>
 <div class="d2">
-        <p>
-            @Html.DisplayFor(model => model.created_at)
-        </p>
+        
 
         <h1>
             @Html.DisplayFor(model => model.name)
         </h1>
+        <p class="p1">
+            @Html.DisplayFor(model => model.created_at)
+        </p>
         <p>
             @Html.DisplayFor(model => model.content)
         </p>

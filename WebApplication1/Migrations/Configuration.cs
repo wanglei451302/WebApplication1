@@ -5,15 +5,14 @@ namespace WebApplication1.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<WebApplication1.Models.AdminContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<WebApplication1.Models.BlogContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "WebApplication1.Models.AdminContext";
         }
 
-        protected override void Seed(WebApplication1.Models.AdminContext context)
+        protected override void Seed(WebApplication1.Models.BlogContext context)
         {
             //  This method will be called after migrating to the latest version.
 
@@ -27,7 +26,6 @@ namespace WebApplication1.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-            
         }
     }
 }

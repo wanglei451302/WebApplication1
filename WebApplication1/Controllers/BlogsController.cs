@@ -79,7 +79,7 @@ namespace WebApplication1.Controllers
                 if (ModelState.IsValid)
                 {
                     blogs.id = Guid.NewGuid().ToString();
-                    blogs.created_at = DateTime.Now;
+                    blogs.created_at = DateTime.Now.ToString("yyyy-MM-dd");
                     db.Blogss.Add(blogs);
                     db.SaveChanges();
                     return RedirectToAction("Index");

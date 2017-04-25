@@ -203,29 +203,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201704200759164_InitialCreate.cs" />
-    <Compile Include="Migrations\201704200759164_InitialCreate.Designer.cs">
-      <DependentUpon>201704200759164_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201704220644151_addmin.cs" />
-    <Compile Include="Migrations\201704220644151_addmin.Designer.cs">
-      <DependentUpon>201704220644151_addmin.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201704220722266_Addadmin.cs" />
-    <Compile Include="Migrations\201704220722266_Addadmin.Designer.cs">
-      <DependentUpon>201704220722266_Addadmin.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201704221121241_AdAdmin.cs" />
-    <Compile Include="Migrations\201704221121241_AdAdmin.Designer.cs">
-      <DependentUpon>201704221121241_AdAdmin.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201704221123500_AA.cs" />
-    <Compile Include="Migrations\201704221123500_AA.Designer.cs">
-      <DependentUpon>201704221123500_AA.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201704230651071_AddMins.cs" />
-    <Compile Include="Migrations\201704230651071_AddMins.Designer.cs">
-      <DependentUpon>201704230651071_AddMins.cs</DependentUpon>
+    <Compile Include="Migrations\201704241028178_add.cs" />
+    <Compile Include="Migrations\201704241028178_add.Designer.cs">
+      <DependentUpon>201704241028178_add.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -237,10 +217,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\Blogs.mdf" />
-    <Content Include="App_Data\Blogs_log.ldf">
-      <DependentUpon>Blogs.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -288,15 +264,8 @@
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
     <Content Include="Views\Account\VerifyCode.cshtml" />
-    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
-    <Content Include="Views\Manage\ChangePassword.cshtml" />
-    <Content Include="Views\Manage\Index.cshtml" />
-    <Content Include="Views\Manage\ManageLogins.cshtml" />
-    <Content Include="Views\Manage\SetPassword.cshtml" />
-    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Admins\Create.cshtml" />
     <Content Include="Views\Blogs\Create.cshtml" />
     <Content Include="Views\Blogs\Delete.cshtml" />
     <Content Include="Views\Blogs\Edit.cshtml" />
@@ -304,34 +273,22 @@
     <Content Include="Views\Blogs\Index.cshtml" />
     <Content Include="Views\Blogs\Details.cshtml" />
     <Content Include="Views\Admins\Login.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201704200759164_InitialCreate.resx">
-      <DependentUpon>201704200759164_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704220644151_addmin.resx">
-      <DependentUpon>201704220644151_addmin.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704220722266_Addadmin.resx">
-      <DependentUpon>201704220722266_Addadmin.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704221121241_AdAdmin.resx">
-      <DependentUpon>201704221121241_AdAdmin.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704221123500_AA.resx">
-      <DependentUpon>201704221123500_AA.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704230651071_AddMins.resx">
-      <DependentUpon>201704230651071_AddMins.cs</DependentUpon>
-    </EmbeddedResource>
+    <Content Include="Views\Admins\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
-    <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201704241028178_add.resx">
+      <DependentUpon>201704241028178_add.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

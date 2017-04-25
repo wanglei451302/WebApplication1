@@ -21,7 +21,7 @@ namespace WebApplication1.Models
         [DataType(DataType.MultilineText)]
         public string content { get; set; }
 
-        public DateTime created_at { get; set; }
+        public string created_at { get; set; }
     }
 
         public class BlogContext : DbContext
