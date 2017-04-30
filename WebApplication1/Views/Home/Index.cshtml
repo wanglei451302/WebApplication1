@@ -6,17 +6,25 @@
 <head>
     <style type="text/css">
         
-        p{
+        p.p1{
             white-space:pre-line;
             }
         div.d2
         {
-            background-color: white;padding: 20px;
+            opacity:0;
+            margin: 5px;
+            position:relative;            
         }
         div.d1{
-            background-color: white;padding: 100px;
+            background-color: white;margin-top: 100px;
         }
     </style>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/")jquery-1.10.2.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".d2").animate({ left: '100px', opacity: 1 });
+        });        
+    </script>
    
 </head>
 
@@ -33,8 +41,8 @@
                 @Html.DisplayFor(modelItem => item.name)
             </h3>
             
-            <p>
-                @Html.DisplayFor(modelItem => item.summary)
+            <p class="p1">                
+                @Html.DisplayFor(modelItem => item.summary)                
             </p>
             
             

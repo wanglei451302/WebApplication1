@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Details";
+    Disqus.Initialize("{forumShortName}");
 }
 
 <head>
@@ -12,35 +13,45 @@
 
         div.d2 {
             background-color: white;
-            padding: 20px;
+            opacity:0;
+            position:  relative;
         }
 
-        div.d1 {
-            background-color: white;
-            padding: 100px;
-        }
         p.p1{
             TEXT-ALIGN: center;
         }
         h1{
             TEXT-ALIGN: center;
         }
+        div.d1{
+            background-color: white;margin-top: 100px;
+        }
     </style>
-
+    <script type="text/javascript" src="@Url.Content("~/Scripts/")jquery-1.10.2.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".d2").animate({ top: '10px', opacity: 1 });
+            $('.p2').load('/BlogContent/@Model.id/1.txt');
+        });
+    </script>
 </head>
-<div class="d2">
-        
-
+<div class="d1">        
+    <div class="d2">
         <h1>
             @Html.DisplayFor(model => model.name)
         </h1>
         <p class="p1">
             @Html.DisplayFor(model => model.created_at)
         </p>
+        <div/>
         <p>
-            @Html.DisplayFor(model => model.content)
+            @Html.DisplayFor(model => model.content)         
         </p>
+        <p class="p2"></p>
+    </div>
 </div>
 <p>
     @Html.ActionLink("返回首页", "Index")
+    @Disqus.ShowComments("{pageId}")
 </p>
+<div class="d1"></div>
