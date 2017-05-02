@@ -68,7 +68,7 @@ namespace WebApplication1.Controllers
         // 详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,user_image,name,summary,content,created_at")] Blogs blogs)
+        public ActionResult Create([Bind(Include = "id,user_image,name,summary,content,created_at")] Blogs blogs, HttpPostedFileBase file)
         {
             if (Request.Cookies["Cookie"] == null)
             {
@@ -80,11 +80,39 @@ namespace WebApplication1.Controllers
                 {
                     blogs.id = Guid.NewGuid().ToString();
                     blogs.created_at = DateTime.Now.ToString("yyyy-MM-dd");
+                    if (file == null || file.ContentLength == 0)
+                    {
+                        ViewBag.Error = "Please select a file";
+                        return View("234");
+                    }
+                    else
+                    {                    
+                        string path = Server.MapPath("~/BlogContent/"+blogs.content+".txt");
+                        if (System.IO.File.Exists(path))
+                        {
+                            try
+                            {
+                                System.IO.File.Delete(path);
+                            }
+                            catch (Exception ex)
+                            {
+                                ViewBag.Result = ex.Message;
+                            }
+                        }
+                        try
+                        {
+                            file.SaveAs(path);
+                        }
+                        catch (Exception ex)
+                        {
+                            ViewBag.Result = ex.Message;
+                        }
+
+                    }
                     db.Blogss.Add(blogs);
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
-
                 return View(blogs);
             }
         }
@@ -173,6 +201,8 @@ namespace WebApplication1.Controllers
                 return RedirectToAction("Index");
             }
         }
+
+        
 
         protected override void Dispose(bool disposing)
         {

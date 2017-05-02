@@ -217,10 +217,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BlogContent\2c6070d0-c562-4213-949c-dd339367cf30\1.txt" />
+    <Content Include="BlogContent\sdfsdfsdfsdf.txt" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\universe.gif" />
+    <Content Include="BlogContent\sdfsdfsdfsdf\universe.gif" />
     <Content Include="Disqus\Docs\content\images\disqus-logo.png" />
     <Content Include="Disqus\Docs\content\images\webx-bkg.png" />
     <Content Include="Disqus\Docs\content\images\webx-content-bkg.jpg" />
