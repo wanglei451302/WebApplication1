@@ -217,10 +217,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BlogContent\sdfsdfsdfsdf.txt" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="BlogContent\sdfsdfsdfsdf\universe.gif" />
     <Content Include="Disqus\Docs\content\images\disqus-logo.png" />
     <Content Include="Disqus\Docs\content\images\webx-bkg.png" />
     <Content Include="Disqus\Docs\content\images\webx-content-bkg.jpg" />
@@ -295,6 +293,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="BlogContent\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201704241028178_add.resx">

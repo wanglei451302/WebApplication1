@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -68,7 +69,7 @@ namespace WebApplication1.Controllers
         // 详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,user_image,name,summary,content,created_at")] Blogs blogs, HttpPostedFileBase file)
+        public ActionResult Create([Bind(Include = "id,user_image,name,summary,content,created_at")] Blogs blogs, IEnumerable<HttpPostedFileBase> files)
         {
             if (Request.Cookies["Cookie"] == null)
             {
@@ -80,34 +81,40 @@ namespace WebApplication1.Controllers
                 {
                     blogs.id = Guid.NewGuid().ToString();
                     blogs.created_at = DateTime.Now.ToString("yyyy-MM-dd");
-                    if (file == null || file.ContentLength == 0)
-                    {
-                        ViewBag.Error = "Please select a file";
-                        return View("234");
-                    }
-                    else
-                    {                    
-                        string path = Server.MapPath("~/BlogContent/"+blogs.content+".txt");
-                        if (System.IO.File.Exists(path))
+                    Directory.CreateDirectory(Server.MapPath("~/BlogContent/" + blogs.content));
+                    foreach (var file in files) {
+                        if (file == null || file.ContentLength == 0)
                         {
+                            ViewBag.Error = "Please select a file";
+                            return View("234");
+                        }
+                        else
+                        {
+                            var fileName = Path.GetFileName(file.FileName);
+                            var path = Path.Combine(Server.MapPath("~/BlogContent/"+blogs.content), fileName);
+
+                           
+                                                   
+                            if (System.IO.File.Exists(path))
+                            {
+                                try
+                                {
+                                    System.IO.File.Delete(path);
+                                }
+                                catch (Exception ex)
+                                {
+                                    ViewBag.Result = ex.Message;
+                                }
+                            }
                             try
                             {
-                                System.IO.File.Delete(path);
+                                file.SaveAs(path);
                             }
                             catch (Exception ex)
                             {
                                 ViewBag.Result = ex.Message;
                             }
                         }
-                        try
-                        {
-                            file.SaveAs(path);
-                        }
-                        catch (Exception ex)
-                        {
-                            ViewBag.Result = ex.Message;
-                        }
-
                     }
                     db.Blogss.Add(blogs);
                     db.SaveChanges();

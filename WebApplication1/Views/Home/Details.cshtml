@@ -6,6 +6,7 @@
 }
 
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
     <style type="text/css">
         p {
             white-space: pre-line;
@@ -31,7 +32,7 @@
     <script>
         $(document).ready(function () {
             $(".d2").animate({ top: '10px', opacity: 1 });
-            $('.p2').load('/BlogContent/'+'@Model.content'+'.txt');
+            $('.p2').load('/BlogContent/'+'@Model.content'+'/content.txt');
         });
     </script>
 </head>

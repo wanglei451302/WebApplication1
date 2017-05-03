@@ -1,0 +1,7 @@
+﻿<img src="universe.jpg"/>
+<p>实力</p>
+<pre>
+示例代码
+for i in range(0,len(nums)):
+    i=i+1
+</pre>
