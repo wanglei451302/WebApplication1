@@ -1,0 +1,7 @@
+﻿<img src="/Blogsimg/universe.jpg"/>
+<p>示例代码</p>
+
+<pre>
+for i in range(0,len(nums)):
+    i=i+1
+</pre>

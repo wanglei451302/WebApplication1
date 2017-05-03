@@ -294,6 +294,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="BlogContent\" />
+    <Folder Include="Blogsimg\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201704241028178_add.resx">

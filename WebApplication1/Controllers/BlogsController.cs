@@ -80,8 +80,7 @@ namespace WebApplication1.Controllers
                 if (ModelState.IsValid)
                 {
                     blogs.id = Guid.NewGuid().ToString();
-                    blogs.created_at = DateTime.Now.ToString("yyyy-MM-dd");
-                    Directory.CreateDirectory(Server.MapPath("~/BlogContent/" + blogs.content));
+                    blogs.created_at = DateTime.Now.ToString("yyyy-MM-dd");                   
                     foreach (var file in files) {
                         if (file == null || file.ContentLength == 0)
                         {
@@ -91,29 +90,33 @@ namespace WebApplication1.Controllers
                         else
                         {
                             var fileName = Path.GetFileName(file.FileName);
-                            var path = Path.Combine(Server.MapPath("~/BlogContent/"+blogs.content), fileName);
+                            
+                            if (file.FileName.EndsWith("txt"))
+                            {
+                                var path = Path.Combine(Server.MapPath("~/BlogContent/" + blogs.content), fileName);
+                                if (System.IO.File.Exists(path))
+                                {
+                                    return View();
+                                }
+                                else
+                                {
+                                    Directory.CreateDirectory(Server.MapPath("~/BlogContent/" + blogs.content));
+                                    file.SaveAs(path);
+                                }
+                            }
 
-                           
-                                                   
-                            if (System.IO.File.Exists(path))
+                            if (file.FileName.EndsWith("jpg")|| file.FileName.EndsWith("gif"))
                             {
-                                try
+                                var path = Path.Combine(Server.MapPath("~/Blogsimg/"), fileName);
+                                if (System.IO.File.Exists(path))
                                 {
-                                    System.IO.File.Delete(path);
+                                    return View();
                                 }
-                                catch (Exception ex)
-                                {
-                                    ViewBag.Result = ex.Message;
+                                else
+                                {         
+                                    file.SaveAs(path);
                                 }
-                            }
-                            try
-                            {
-                                file.SaveAs(path);
-                            }
-                            catch (Exception ex)
-                            {
-                                ViewBag.Result = ex.Message;
-                            }
+                            }                            
                         }
                     }
                     db.Blogss.Add(blogs);
