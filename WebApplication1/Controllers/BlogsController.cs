@@ -85,7 +85,7 @@ namespace WebApplication1.Controllers
                         if (file == null || file.ContentLength == 0)
                         {
                             ViewBag.Error = "Please select a file";
-                            return View("234");
+                            return View();
                         }
                         else
                         {
@@ -124,6 +124,57 @@ namespace WebApplication1.Controllers
                     return RedirectToAction("Index");
                 }
                 return View(blogs);
+            }
+        }
+
+        public ActionResult UploadMaterial()
+        {
+            if (Request.Cookies["Cookie"] == null)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UploadMaterial([Bind(Include = "name")] Material materials, HttpPostedFileBase file)
+        {
+            if (Request.Cookies["Cookie"] == null)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    if (file == null || file.ContentLength == 0)
+                    {
+                        ViewBag.Error = "Please select a file";
+                        return View();
+                    }
+                    else
+                    {
+                        var fileName = Path.GetFileName(file.FileName);
+                        materials.name = fileName;
+                        var path = Path.Combine(Server.MapPath("~/BlogMaterial/"),fileName);
+                        if (System.IO.File.Exists(path))
+                        {
+                            return View();
+                        }
+                        else
+                        {
+                            file.SaveAs(path);
+                        }
+                    }
+                    db.Materials.Add(materials);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View(materials);
             }
         }
 

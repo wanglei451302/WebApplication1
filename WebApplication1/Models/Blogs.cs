@@ -24,9 +24,16 @@ namespace WebApplication1.Models
         public string created_at { get; set; }
     }
 
+    public class Material
+    {
+        [Key]
+        public string name { get; set; }
+    }
+
         public class BlogContext : DbContext
         {
             public DbSet<Blogs> Blogss { get; set; }
+            public DbSet<Material> Materials { get; set; }
         }
     
 }
