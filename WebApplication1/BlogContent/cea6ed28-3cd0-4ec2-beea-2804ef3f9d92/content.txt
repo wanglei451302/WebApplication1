@@ -1,0 +1,2 @@
+﻿<img src="/Blogsimg/github-octocat.png"/>
+<p>大家好，欢迎进入我的世界</p>

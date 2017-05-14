@@ -288,6 +288,7 @@
     <Content Include="Views\Admins\Login.cshtml" />
     <Content Include="Views\Admins\Create.cshtml" />
     <Content Include="Views\Blogs\UploadMaterial.cshtml" />
+    <Content Include="Views\Blogs\MaterialIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -300,7 +301,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="BlogContent\" />
     <Folder Include="BlogMaterial\" />
-    <Folder Include="Blogsimg\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201704241028178_add.resx">

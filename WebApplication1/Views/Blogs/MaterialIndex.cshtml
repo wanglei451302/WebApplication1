@@ -1,0 +1,33 @@
+﻿@model IEnumerable<WebApplication1.Models.Material>
+
+@{
+    ViewBag.Title = "MaterialIndex";
+}
+
+<h2>MaterialIndex</h2>
+
+<p>
+    @Html.ActionLink("Upload Material", "UploadMaterial")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            review
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            <img src="~/BlogMaterial/@item.name" width="50" height="50"/>
+        </td>
+    </tr>
+}
+
+</table>

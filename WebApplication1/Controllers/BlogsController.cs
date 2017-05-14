@@ -27,7 +27,19 @@ namespace WebApplication1.Controllers
             }
         }
 
-        
+        public ActionResult MaterialIndex()
+        {
+            if (Request.Cookies["Cookie"] == null)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(db.Materials.ToList());
+            }
+        }
+
+
 
         // GET: Blogs/Details/5
         public ActionResult Details(string id)
@@ -78,9 +90,7 @@ namespace WebApplication1.Controllers
             else
             {
                 if (ModelState.IsValid)
-                {
-                    blogs.id = Guid.NewGuid().ToString();
-                    blogs.created_at = DateTime.Now.ToString("yyyy-MM-dd");                   
+                {                                    
                     foreach (var file in files) {
                         if (file == null || file.ContentLength == 0)
                         {
@@ -93,35 +103,31 @@ namespace WebApplication1.Controllers
                             
                             if (file.FileName.EndsWith("txt"))
                             {
-                                var path = Path.Combine(Server.MapPath("~/BlogContent/" + blogs.content), fileName);
+                                blogs.id = Guid.NewGuid().ToString();
+                                var path =Server.MapPath("~/BlogContent/" + blogs.id+"/content.txt");
                                 if (System.IO.File.Exists(path))
                                 {
                                     return View();
                                 }
                                 else
                                 {
-                                    Directory.CreateDirectory(Server.MapPath("~/BlogContent/" + blogs.content));
+                                    blogs.created_at = DateTime.Now.ToString("yyyy-MM-dd");
+                                    Directory.CreateDirectory(Server.MapPath("~/BlogContent/" + blogs.id));
                                     file.SaveAs(path);
+                                    db.Blogss.Add(blogs);
+                                    db.SaveChanges();
+                                    return RedirectToAction("Index");
                                 }
                             }
-
-                            if (file.FileName.EndsWith("jpg")|| file.FileName.EndsWith("gif"))
+                            else
                             {
-                                var path = Path.Combine(Server.MapPath("~/Blogsimg/"), fileName);
-                                if (System.IO.File.Exists(path))
-                                {
-                                    return View();
-                                }
-                                else
-                                {         
-                                    file.SaveAs(path);
-                                }
-                            }                            
+                                return View();
+                            }
+                            
                         }
                     }
-                    db.Blogss.Add(blogs);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    
+
                 }
                 return View(blogs);
             }
@@ -172,7 +178,7 @@ namespace WebApplication1.Controllers
                     }
                     db.Materials.Add(materials);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("MaterialIndex");
                 }
                 return View(materials);
             }
@@ -205,7 +211,7 @@ namespace WebApplication1.Controllers
         // 详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,user_image,name,summary,content,created_at")] Blogs blogs)
+        public ActionResult Edit([Bind(Include = "id,user_image,name,summary,content,created_at")] Blogs blogs,IEnumerable<HttpPostedFileBase> files)
         {
             if (Request.Cookies["Cookie"] == null)
             {
@@ -215,6 +221,27 @@ namespace WebApplication1.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    foreach (var file in files)
+                    {
+                        if (file == null || file.ContentLength == 0)
+                        {
+                            ViewBag.Error = "Please select a file";
+                            return View();
+                        }
+                        else
+                        {
+                            var fileName = Path.GetFileName(file.FileName);
+                            if (file.FileName.EndsWith("txt"))
+                            {
+                                var path = Server.MapPath("~/BlogContent/" + blogs.id + "/content.txt");
+                                if (System.IO.File.Exists(path))
+                                {
+                                    System.IO.File.Delete(path);
+                                }
+                                file.SaveAs(path);
+                            }
+                        }
+                    }
                     db.Entry(blogs).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index");
