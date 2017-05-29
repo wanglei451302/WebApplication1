@@ -11,7 +11,6 @@
             }
         div.d2
         {
-            opacity:0;
             margin: 5px;
             position:relative;            
         }
@@ -20,11 +19,7 @@
         }
     </style>
     <script type="text/javascript" src="@Url.Content("~/Scripts/")jquery-1.10.2.js"></script>
-    <script>
-        $(document).ready(function () {
-            $(".d2").animate({ left: '100px', opacity: 1 });
-        });        
-    </script>
+    
    
 </head>
 
@@ -45,9 +40,7 @@
                 @Html.DisplayFor(modelItem => item.summary)                
             </p>
             
-            
             <a href="~/Home/Details/@item.id">继续阅读</a>
-            
             </div>
         
     }

@@ -1,2 +1,0 @@
-﻿<img src="/BlogMaterial/github-octocat.png"/>
-<p>刚刚发错了，请多多关照</p>

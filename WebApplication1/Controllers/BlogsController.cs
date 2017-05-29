@@ -104,7 +104,7 @@ namespace WebApplication1.Controllers
                             if (file.FileName.EndsWith("txt"))
                             {
                                 blogs.id = Guid.NewGuid().ToString();
-                                var path =Server.MapPath("~/BlogContent/" + blogs.id+"/content.txt");
+                                var path =Server.MapPath("~/BlogContent/" + blogs.id+"/content.html");
                                 if (System.IO.File.Exists(path))
                                 {
                                     return View();
@@ -233,7 +233,7 @@ namespace WebApplication1.Controllers
                             var fileName = Path.GetFileName(file.FileName);
                             if (file.FileName.EndsWith("txt"))
                             {
-                                var path = Server.MapPath("~/BlogContent/" + blogs.id + "/content.txt");
+                                var path = Server.MapPath("~/BlogContent/"+blogs.id+"/content.html");
                                 if (System.IO.File.Exists(path))
                                 {
                                     System.IO.File.Delete(path);

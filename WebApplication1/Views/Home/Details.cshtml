@@ -14,7 +14,6 @@
 
         div.d2 {
             background-color: white;
-            opacity:0;
             position:  relative;
         }
 
@@ -31,8 +30,7 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/")jquery-1.10.2.js"></script>
     <script>
         $(document).ready(function () {
-            $(".d2").animate({ top: '10px', opacity: 1 });
-            $('.p2').load('/BlogContent/'+'@Model.id'+'/content.txt');
+            $('.p2').load("/BlogContent/"+"@Model.id"+"/content.html");
         });
     </script>
 </head>
