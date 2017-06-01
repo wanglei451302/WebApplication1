@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Models;
@@ -27,6 +28,8 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
+            MatchEvaluator evaluator = new MatchEvaluator(word => { return "<img src=" + word.Value.Substring(1) + " />"; });
+            blogs.content = Regex.Replace(blogs.content, "#\"/BlogMaterial.*(jpg|gif)\"", evaluator);
             return View(blogs);
         }
     }

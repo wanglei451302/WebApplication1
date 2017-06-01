@@ -6,7 +6,7 @@
 }
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+    
     <style type="text/css">
         p {
             white-space: pre-line;
@@ -29,11 +29,10 @@
     </style>
     <script type="text/javascript" src="@Url.Content("~/Scripts/")jquery-1.10.2.js"></script>
     <script>
-        $(document).ready(function () {
-            $('.p2').load("/BlogContent/"+"@Model.id"+"/content.html");
-        });
+        
     </script>
 </head>
+
 <div class="d1">        
     <div class="d2">
         <h1>
@@ -43,10 +42,13 @@
             @Html.DisplayFor(model => model.created_at)
         </p>
         <div/>
-        <p>
-            @Html.DisplayFor(model => model.content)         
+        <p id="cont" >            
+            @Html.DisplayFor(model => model.content)
+            <img src="/BlogMaterial/universe.jpg"/>
+            
         </p>
         <p class="p2"></p>
+        
     </div>
 </div>
 <p>

@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Models;
+using System.Text.RegularExpressions;
 
 namespace WebApplication1.Controllers
 {
@@ -111,6 +112,7 @@ namespace WebApplication1.Controllers
                                 }
                                 else
                                 {
+                                    
                                     blogs.created_at = DateTime.Now.ToString("yyyy-MM-dd");
                                     Directory.CreateDirectory(Server.MapPath("~/BlogContent/" + blogs.id));
                                     file.SaveAs(path);
