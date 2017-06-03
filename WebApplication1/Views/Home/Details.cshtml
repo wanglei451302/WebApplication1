@@ -27,10 +27,12 @@
             background-color: white;margin-top: 100px;
         }
     </style>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/")jquery-1.10.2.js"></script>
-    <script>
-        
-    </script>
+       <script type="text/javascript" src="@Url.Content("~/Scripts/")jquery-1.10.2.js"></script>
+       <script>
+           $(document).ready(function () {
+               $('.p2').load("/Blogcontent/"+"@Model.id"+"/content.html");
+           });
+       </script>
 </head>
 
 <div class="d1">        
@@ -43,9 +45,8 @@
         </p>
         <div/>
         <p id="cont" >            
-            @Html.DisplayFor(model => model.content)
-            <img src="/BlogMaterial/universe.jpg"/>
             
+         
         </p>
         <p class="p2"></p>
         
@@ -56,3 +57,4 @@
     @Disqus.ShowComments("{pageId}")
 </p>
 <div class="d1"></div>
+

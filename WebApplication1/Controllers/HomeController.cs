@@ -28,7 +28,7 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
-            MatchEvaluator evaluator = new MatchEvaluator(word => { return "<img src=" + word.Value.Substring(1) + " />"; });
+            MatchEvaluator evaluator = new MatchEvaluator(word => { return "<img src=" + word.Value.Substring(1) + "/>"; });
             blogs.content = Regex.Replace(blogs.content, "#\"/BlogMaterial.*(jpg|gif)\"", evaluator);
             return View(blogs);
         }

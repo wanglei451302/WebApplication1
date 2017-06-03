@@ -3,7 +3,23 @@
 @{
     ViewBag.Title = "Edit";
 }
-
+<head>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/")jquery-1.10.2.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#content").keyup(function(){
+                $("#div1").html($("#content").val().replace(/#"\/BlogMaterial.*(jpg|gif)"/g, function (word) {
+                    return "<img src=" + word.substring(1)+"/>";
+                }));
+            });
+            $("#content").keydown(function () {
+                $("#div1").html($("#content").val().replace(/#"\/BlogMaterial.*(jpg|gif)"/g, function (word) {
+                    return "<img src=" + word.substring(1) + "/>";
+                }));
+            });
+        });
+    </script>
+</head>
 <h2>Edit</h2>
 
 
@@ -58,7 +74,7 @@
                 @Html.ValidationMessageFor(model => model.created_at, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        <div id="div1"></div>
         
 
         <div class="form-group">

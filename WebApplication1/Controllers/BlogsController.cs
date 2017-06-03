@@ -84,26 +84,15 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,user_image,name,summary,content,created_at")] Blogs blogs, IEnumerable<HttpPostedFileBase> files)
         {
+            
             if (Request.Cookies["Cookie"] == null)
             {
                 return RedirectToAction("Index");
             }
             else
             {
-                if (ModelState.IsValid)
-                {                                    
-                    foreach (var file in files) {
-                        if (file == null || file.ContentLength == 0)
-                        {
-                            ViewBag.Error = "Please select a file";
-                            return View();
-                        }
-                        else
-                        {
-                            var fileName = Path.GetFileName(file.FileName);
-                            
-                            if (file.FileName.EndsWith("txt"))
-                            {
+                if (ModelState.IsValid)                {                                    
+                   
                                 blogs.id = Guid.NewGuid().ToString();
                                 var path =Server.MapPath("~/BlogContent/" + blogs.id+"/content.html");
                                 if (System.IO.File.Exists(path))
@@ -115,22 +104,16 @@ namespace WebApplication1.Controllers
                                     
                                     blogs.created_at = DateTime.Now.ToString("yyyy-MM-dd");
                                     Directory.CreateDirectory(Server.MapPath("~/BlogContent/" + blogs.id));
-                                    file.SaveAs(path);
                                     db.Blogss.Add(blogs);
                                     db.SaveChanges();
+                                    MatchEvaluator evaluator = new MatchEvaluator(word => { return "<img src=" + word.Value.Substring(1) + "/>"; });
+                                    blogs.content = Regex.Replace(blogs.content, "#\"/BlogMaterial.*(jpg|gif)\"", evaluator);
+                                    StreamWriter sw = new StreamWriter(path);
+                                    sw.Write(blogs.content);
+                                    sw.Close();
                                     return RedirectToAction("Index");
                                 }
                             }
-                            else
-                            {
-                                return View();
-                            }
-                            
-                        }
-                    }
-                    
-
-                }
                 return View(blogs);
             }
         }
@@ -223,29 +206,21 @@ namespace WebApplication1.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    foreach (var file in files)
-                    {
-                        if (file == null || file.ContentLength == 0)
-                        {
-                            ViewBag.Error = "Please select a file";
-                            return View();
-                        }
-                        else
-                        {
-                            var fileName = Path.GetFileName(file.FileName);
-                            if (file.FileName.EndsWith("txt"))
-                            {
-                                var path = Server.MapPath("~/BlogContent/"+blogs.id+"/content.html");
-                                if (System.IO.File.Exists(path))
-                                {
-                                    System.IO.File.Delete(path);
-                                }
-                                file.SaveAs(path);
-                            }
-                        }
-                    }
+                    
+                var path = Server.MapPath("~/BlogContent/"+blogs.id+"/content.html");
+                if (System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                }
+                                
+                            
                     db.Entry(blogs).State = EntityState.Modified;
                     db.SaveChanges();
+                    MatchEvaluator evaluator = new MatchEvaluator(word => { return "<img src=" + word.Value.Substring(1) + "/>"; });
+                    blogs.content = Regex.Replace(blogs.content, "#\"/BlogMaterial.*(jpg|gif)\"", evaluator);
+                    StreamWriter sw = new StreamWriter(path);
+                    sw.Write(blogs.content);
+                    sw.Close();
                     return RedirectToAction("Index");
                 }
                 return View(blogs);
