@@ -82,7 +82,7 @@ namespace WebApplication1.Controllers
         // 详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,user_image,name,summary,content,created_at")] Blogs blogs, IEnumerable<HttpPostedFileBase> files)
+        public ActionResult Create([Bind(Include = "id,user_image,name,summary,content,created_at")] Blogs blogs)
         {
             
             if (Request.Cookies["Cookie"] == null)
@@ -91,7 +91,7 @@ namespace WebApplication1.Controllers
             }
             else
             {
-                if (ModelState.IsValid)                {                                    
+                if (ModelState.IsValid){                                    
                    
                                 blogs.id = Guid.NewGuid().ToString();
                                 var path =Server.MapPath("~/BlogContent/" + blogs.id+"/content.html");
@@ -196,7 +196,7 @@ namespace WebApplication1.Controllers
         // 详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,user_image,name,summary,content,created_at")] Blogs blogs,IEnumerable<HttpPostedFileBase> files)
+        public ActionResult Edit([Bind(Include = "id,user_image,name,summary,content,created_at")] Blogs blogs)
         {
             if (Request.Cookies["Cookie"] == null)
             {
@@ -261,6 +261,15 @@ namespace WebApplication1.Controllers
             else
             {
                 Blogs blogs = db.Blogss.Find(id);
+                var path = Server.MapPath("~/BlogContent/" + blogs.id + "/content.html");
+                if (System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                }
+                if (Directory.Exists(Server.MapPath("~/BlogContent/" + blogs.id)))
+                {
+                    Directory.Delete(Server.MapPath("~/BlogContent/" + blogs.id));
+                }
                 db.Blogss.Remove(blogs);
                 db.SaveChanges();
                 return RedirectToAction("Index");

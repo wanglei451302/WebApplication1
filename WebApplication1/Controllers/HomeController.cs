@@ -32,5 +32,14 @@ namespace WebApplication1.Controllers
             blogs.content = Regex.Replace(blogs.content, "#\"/BlogMaterial.*(jpg|gif)\"", evaluator);
             return View(blogs);
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }
