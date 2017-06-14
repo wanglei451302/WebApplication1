@@ -107,7 +107,9 @@ namespace WebApplication1.Controllers
                                     db.Blogss.Add(blogs);
                                     db.SaveChanges();
                                     MatchEvaluator evaluator = new MatchEvaluator(word => { return "<img src=" + word.Value.Substring(1) + "/>"; });
+                                    MatchEvaluator evaluator2 = new MatchEvaluator(word => { return "<p>" + word.Value.Substring(3, word.Value.Length-5) + "<p/>"; });
                                     blogs.content = Regex.Replace(blogs.content, "#\"/BlogMaterial.*(jpg|gif)\"", evaluator);
+                                    blogs.content = Regex.Replace(blogs.content, "%p .*p%", evaluator2);
                                     StreamWriter sw = new StreamWriter(path);
                                     sw.Write(blogs.content);
                                     sw.Close();
@@ -142,28 +144,31 @@ namespace WebApplication1.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    if (file == null || file.ContentLength == 0)
+                    if (file.FileName.EndsWith("jpg") || file.FileName.EndsWith("gif"))
                     {
-                        ViewBag.Error = "Please select a file";
-                        return View();
-                    }
-                    else
-                    {
-                        var fileName = Path.GetFileName(file.FileName);
-                        materials.name = fileName;
-                        var path = Path.Combine(Server.MapPath("~/BlogMaterial/"),fileName);
-                        if (System.IO.File.Exists(path))
+                        if (file == null || file.ContentLength == 0)
                         {
+                            ViewBag.Error = "Please select a file";
                             return View();
                         }
                         else
                         {
-                            file.SaveAs(path);
+                            var fileName = Path.GetFileName(file.FileName);
+                            materials.name = fileName;
+                            var path = Path.Combine(Server.MapPath("~/BlogMaterial/"), fileName);
+                            if (System.IO.File.Exists(path))
+                            {
+                                return View();
+                            }
+                            else
+                            {
+                                file.SaveAs(path);
+                            }
                         }
+                        db.Materials.Add(materials);
+                        db.SaveChanges();
+                        return RedirectToAction("MaterialIndex");
                     }
-                    db.Materials.Add(materials);
-                    db.SaveChanges();
-                    return RedirectToAction("MaterialIndex");
                 }
                 return View(materials);
             }
@@ -217,7 +222,9 @@ namespace WebApplication1.Controllers
                     db.Entry(blogs).State = EntityState.Modified;
                     db.SaveChanges();
                     MatchEvaluator evaluator = new MatchEvaluator(word => { return "<img src=" + word.Value.Substring(1) + "/>"; });
+                    MatchEvaluator evaluator2 = new MatchEvaluator(word => { return "<p>" + word.Value.Substring(3, word.Value.Length-5) + "<p/>"; });
                     blogs.content = Regex.Replace(blogs.content, "#\"/BlogMaterial.*(jpg|gif)\"", evaluator);
+                    blogs.content = Regex.Replace(blogs.content, "%p .*p%", evaluator2);
                     StreamWriter sw = new StreamWriter(path);
                     sw.Write(blogs.content);
                     sw.Close();

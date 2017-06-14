@@ -10,11 +10,15 @@
             $("#content").keyup(function(){
                 $("#div1").html($("#content").val().replace(/#"\/BlogMaterial.*(jpg|gif)"/g, function (word) {
                     return "<img src=" + word.substring(1)+"/>";
+                }).replace(/%p .*p%/g, function (word) {
+                    return "<p>" + word.substring(3,word.length-2) + "<p/>";
                 }));
             });
             $("#content").keydown(function () {
                 $("#div1").html($("#content").val().replace(/#"\/BlogMaterial.*(jpg|gif)"/g, function (word) {
                     return "<img src=" + word.substring(1) + "/>";
+                }).replace(/%p .*p%/g, function (word) {
+                    return "<p>" + word.substring(3, word.length - 2) + "<p/>";
                 }));
             });
         });
